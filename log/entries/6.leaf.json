@@ -1,0 +1,1 @@
+{"issuer":"did:web:agora.example:builder","kind":"signed-statement","payload_sha256":"80b5dd9f00ca1c05580bf2c877e8b915afd69b46ec844ea9185bcf0aa6c6778c","policy_sha256":"971835336fd3613c0fbe3b5bc8e35877a4f1abb4f5469f3348eb0dbf66a982a3","seq":6,"statement_sha256":"b5d90e5f6244242a71a926f9e8a148b039fa61230b6b3ea442cd58cf4a4a22cd","subject":"memory:acceptance","ts":1790072239.166345}
