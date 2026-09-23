@@ -1,0 +1,18 @@
+# A snapshot arrived. This does nothing itself: when it completes, `publish` on main runs through
+# workflow_run and verifies the snapshot before anything reaches Pages. It lives on `incoming` only
+# because a push runs the workflows of the pushed branch. No permissions, no secrets.
+
+name: snapshot-arrived
+
+on:
+  push:
+    branches: [incoming]
+
+permissions: {}
+
+jobs:
+  arrived:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - run: echo "snapshot $GITHUB_SHA on incoming; publish verifies it"
