@@ -2,8 +2,13 @@
 #
 # WHO CAN DO WHAT. The host holds a deploy key that can push to this repository. A ruleset blocks
 # it from `main`, so it can write only the `incoming` branch. This workflow and the pinned key live
-# on `main`, and scheduled and manual runs always execute main's copy of this file. A host that
-# pushed a changed workflow to `incoming` would change nothing that runs.
+# on `main`, and every run of THIS workflow executes main's copy of it, whatever started the run.
+#
+# WHAT STARTS IT. GitHub's scheduler barely runs on this account (once in 11 hours on 2026-09-23),
+# so a snapshot also starts it: the host's push to `incoming` runs `snapshot-arrived`, a no-op
+# workflow that lives on `incoming`, and its completion starts this one through workflow_run. The
+# host needs no token for that. It controls only the no-op file: it can start a verification or
+# stop starting one, and it cannot change what is verified or what is published.
 #
 # IF VERIFICATION FAILS, NOTHING IS PUBLISHED and the job ends red. Pages keeps serving the last
 # snapshot that passed.
@@ -16,6 +21,9 @@ on:
     # are when it is loaded; between 04:08 and 06:40 on 2026-09-23 not one :00/:30 run started.
     - cron: '17,47 * * * *'
   workflow_dispatch:
+  workflow_run:
+    workflows: [snapshot-arrived]
+    types: [completed]
 
 permissions:
   contents: read
