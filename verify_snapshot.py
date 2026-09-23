@@ -36,6 +36,9 @@ import urllib.request
 
 from inspeximus import merkle
 from inspeximus.checkpoint import parse_checkpoint
+# Imported here, not inside a try: a missing library must stop the run as an error, never
+# read as a signature that failed to verify.
+from cryptography.exceptions import InvalidSignature
 from inspeximus.witness_log import judge
 
 
@@ -84,7 +87,7 @@ def main(argv=None) -> int:
     try:
         note = open(os.path.join(snap, "checkpoint"), encoding="utf-8").read()
         cp = parse_checkpoint(note, {name: pub}, required=[name])
-    except Exception as e:                                             # noqa: BLE001
+    except (ValueError, InvalidSignature) as e:
         # InvalidSignature carries no message, so name the exception rather than print nothing.
         return fail("the checkpoint does not verify under the pinned key: %s %s"
                     % (type(e).__name__, e))

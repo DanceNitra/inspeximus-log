@@ -12,7 +12,9 @@ name: publish
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    # Not :00 or :30. GitHub drops scheduled runs under load, and the top and bottom of the hour
+    # are when it is loaded; between 04:08 and 06:40 on 2026-09-23 not one :00/:30 run started.
+    - cron: '17,47 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +27,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  PAGES_LOG: https://dancenitra.github.io/inspeximus-log/log
+  PAGES: https://dancenitra.github.io/inspeximus-log
   # The second copy of the key, beside the vkey file. It must equal the reference value printed
   # and stored off-line; changing one without the other fails the run.
   EXPECT_KEY: 9fb780dd72894867c6dac8e140cc78d755617147d20cfd26bfe557190f65ac49
@@ -47,16 +49,28 @@ jobs:
           python-version: '3.12'
       - run: pip install "inspeximus==3.7.0" cryptography
 
-      - name: Verify the snapshot against the pinned key and the published history
+      # THE FIRST LOG IS FROZEN, so it is checked against a manifest, not against itself. Every
+      # file the host pushes under log/ must hash to the manifest on main, and no file may be added
+      # or dropped. A changed byte there is a rewrite of a log we told people is closed.
+      - name: The first log is exactly the frozen one
         run: |
-          python verify_snapshot.py --snapshot incoming/log --vkey trust/checkpoint.vkey \
-            --expect-key "$EXPECT_KEY" --previous "$PAGES_LOG"
+          cd incoming/log
+          sha256sum --check --quiet --strict ../../trust/frozen-v1.sha256
+          test "$(find . -type f | wc -l)" -eq "$(wc -l < ../../trust/frozen-v1.sha256)"
+
+      - name: The current log verifies against its pinned key and extends the live head
+        run: |
+          python verify_snapshot.py --snapshot incoming/current --vkey trust/checkpoint-v2.vkey             --expect-key "$EXPECT_KEY" --previous "$PAGES" --baseline trust/baseline-head-v2.json
+
+      - name: The current log continues the first one
+        run: |
+          python verify_succession.py --first incoming/log --current incoming/current             --first-vkey trust/checkpoint.vkey --current-vkey trust/checkpoint-v2.vkey
 
       - name: Assemble the site
         run: |
           mkdir -p site
+          cp -r incoming/current/. site/
           cp -r incoming/log site/log
-          cp index.html site/index.html
           touch site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
