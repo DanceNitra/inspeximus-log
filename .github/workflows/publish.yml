@@ -1,0 +1,66 @@
+# Publish the log mirror to Pages, but only a snapshot that verifies.
+#
+# WHO CAN DO WHAT. The host holds a deploy key that can push to this repository. A ruleset blocks
+# it from `main`, so it can write only the `incoming` branch. This workflow and the pinned key live
+# on `main`, and scheduled and manual runs always execute main's copy of this file. A host that
+# pushed a changed workflow to `incoming` would change nothing that runs.
+#
+# IF VERIFICATION FAILS, NOTHING IS PUBLISHED and the job ends red. Pages keeps serving the last
+# snapshot that passed.
+
+name: publish
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  PAGES_LOG: https://dancenitra.github.io/inspeximus-log/log
+  # The second copy of the key, beside the vkey file. It must equal the reference value printed
+  # and stored off-line; changing one without the other fails the run.
+  EXPECT_KEY: 9fb780dd72894867c6dac8e140cc78d755617147d20cfd26bfe557190f65ac49
+
+jobs:
+  verify-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: incoming
+          path: incoming
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install "inspeximus==3.7.0" cryptography
+
+      - name: Verify the snapshot against the pinned key and the published history
+        run: |
+          python verify_snapshot.py --snapshot incoming/log --vkey trust/checkpoint.vkey \
+            --expect-key "$EXPECT_KEY" --previous "$PAGES_LOG"
+
+      - name: Assemble the site
+        run: |
+          mkdir -p site
+          cp -r incoming/log site/log
+          cp index.html site/index.html
+          touch site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4
