@@ -2,7 +2,7 @@
   "audit_path": [
     "997998efdff30895ec607b395a11e8ecb17c58aeca18fc58faeb7f8d1be74ad1",
     "86a9b6ecb229f8e37a07a7d800ca6c42f5ad8df8bcea6627773e89d0c7752134",
-    "645ec3abdf25efb3592c9ececac512addd71268a8a74fc07376086f05666de0c",
+    "9b2dc88d5ef6a6724a41091dbda2767dca033f7fbd9047a5e5ff282c7d2717c7",
     "ea77b6d6176fbaeedde90d42974e5cf8940a143050623eda6f437a440521a51a",
     "2b1624abbeb2b459308de4fa328d4538a53ef45f0ad9803e63d323fba11c5210"
   ],
@@ -11,7 +11,7 @@
   "kind": "inspeximus.inclusion-proof/1",
   "leaf": "entries/26.leaf.json",
   "leaf_hash": "63ca92749cc00aea8f5ad5d7a041a27135171cf5e4020e064061fee63019e76f",
-  "root": "f6e980a4c23f02bd9b5ee14371afc4d0ec7602c105bc59318162a9899bc3bbc9",
+  "root": "5ea8665b6299563ba166a6a1203dd50e058cecc9a2354371a5626b060b20a72b",
   "scope": "Proves this entry is in the tree whose root is named here. It does not prove the entry is true, and it cannot see a history shown to somebody else: that is what the witness is for.",
-  "tree_size": 29
+  "tree_size": 30
 }
