@@ -1,17 +1,15 @@
 {
   "audit_path": [
-    "97ba822a109995ac05b0c8bcc1854aebc978d41df69e30443f212c107d5a6d4f",
-    "7fd25c1f26ea4aa9ecf21d862589a48fb0ad4802a84c0184af3d8237efcd25a8",
-    "a1e0f0f195d437bb6b2049dca28c1500711af4c15fc1df8fa7bf1a4071d113d6",
-    "9baa74516fe46152a9b7cba6c499d66f92da970a597c9d3b66d333e3f04dfd3c",
-    "2b1624abbeb2b459308de4fa328d4538a53ef45f0ad9803e63d323fba11c5210",
-    "aca4b4a5813936647801bf7ca33be41d5026f481309e366e63667cf4088aea51"
+    "53f8b14764ec1fedd7d2f41c7b1c5cee9d848b0c6f080efe9e46e14b99ef466b",
+    "8988648fc3e47eae3ba14395490abd87b310edfe42b31cad8e7d5607dd497f29",
+    "5c782493d8ab6e32c5bd3fcb0a3c6a0a1362b068486f8484dfc1f1aaf341e441",
+    "a4d7c1e6a7ef0a9a2612327372e37923220c089916ee2df272e3dfb78510e201"
   ],
   "how": "Hash the leaf file with SHA-256(0x00 || bytes), then fold the audit path in order with SHA-256(0x01 || left || right), RFC 6962. The result must equal `root`, which is the value the signed checkpoint carries.",
-  "index": 18,
+  "index": 39,
   "kind": "inspeximus.inclusion-proof/1",
-  "leaf": "entries/18.leaf.json",
-  "leaf_hash": "ab8eeb100d02c2a3235fe287525ad47bfe3e85d9d4bb3f1a640033715b1b6c93",
+  "leaf": "entries/39.leaf.json",
+  "leaf_hash": "efc7bfdd597aa03d22d75f8b7bd994906e8139b51d7cb06370a002bfefe10a29",
   "root": "dfebf2671c2f489078310abbc36b9325437fa340e602fb8d77079ca5fbbeaba9",
   "scope": "Proves this entry is in the tree whose root is named here. It does not prove the entry is true, and it cannot see a history shown to somebody else: that is what the witness is for.",
   "tree_size": 40
