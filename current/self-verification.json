@@ -1,5 +1,5 @@
 {
-  "checked_utc": "2026-10-08T03:07:01Z",
+  "checked_utc": "2026-10-09T03:07:02Z",
   "entries": 49,
   "entries_without_receipt": 0,
   "kind": "inspeximus.self-verification/1",
@@ -7,6 +7,6 @@
   "receipts_verified": 49,
   "root": "49ce3dd05513f7170c1ab6e42e44a8530adab2c5ce3a6e7e2a17a50fe7ff0637",
   "scope": "The operator checking the operator, over the artifacts this site publishes. It cannot see a history shown to somebody else. Independence comes from the external witness and the Bitcoin anchor, not from this file.",
-  "seconds": 0.063,
+  "seconds": 0.024,
   "verdict": "OK"
 }
