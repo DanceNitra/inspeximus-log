@@ -1,12 +1,12 @@
 {
-  "checked_utc": "2026-10-28T13:07:02Z",
-  "entries": 87,
+  "checked_utc": "2026-10-29T03:07:02Z",
+  "entries": 88,
   "entries_without_receipt": 0,
   "kind": "inspeximus.self-verification/1",
   "problems": [],
-  "receipts_verified": 87,
-  "root": "16be0343c61041d386c1120969cffa9c7e8d9f6dd15a4aea9900e348b2aefed6",
+  "receipts_verified": 88,
+  "root": "20aebd781d6de42a518b9c7331a70e78679c26e136a65169f101d1d3fe5b5995",
   "scope": "The operator checking the operator, over the artifacts this site publishes. It cannot see a history shown to somebody else. Independence comes from the external witness and the Bitcoin anchor, not from this file.",
-  "seconds": 0.192,
+  "seconds": 0.083,
   "verdict": "OK"
 }
