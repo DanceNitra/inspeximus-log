@@ -29,6 +29,8 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  # Reading this run's own artifact list, to know the upload is visible before the deploy asks.
+  actions: read
 
 concurrency:
   group: pages
@@ -84,5 +86,28 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+
+      # ARTIFACT METADATA IS EVENTUALLY CONSISTENT, so the deploy can ask too early. On 2026-11-17
+      # and again on 2026-11-19 the upload finished, the deploy asked about half a second later,
+      # and the API answered "Found 0 artifact(s)". The run went red although every verification
+      # step had passed and the artifact existed. This step waits until the API reports exactly one
+      # artifact. Two is also fatal to the deploy, so it fails fast and says why.
+      - name: The artifact is visible to the deploy API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 30); do
+            n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?name=github-pages"                   --jq '[.artifacts[] | select(.expired == false)] | length')
+            echo "attempt $i: $n artifact(s)"
+            if [ "$n" -eq 1 ]; then exit 0; fi
+            if [ "$n" -gt 1 ]; then
+              echo "::error::$n artifacts named github-pages. The deploy accepts exactly one."
+              exit 1
+            fi
+            sleep 2
+          done
+          echo "::error::the uploaded artifact never became visible to the API"
+          exit 1
+
       - id: deploy
         uses: actions/deploy-pages@v4
