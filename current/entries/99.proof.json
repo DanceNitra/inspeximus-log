@@ -3,7 +3,7 @@
     "47268d936cbe84a23a0e1f8425b8eaeecd5c7df87cd126e8a631c3ffc609a26e",
     "3a58120ddd03da0268145d78c85ed8bfe0b8ffb40ffffb726aa8da3b342cc84d",
     "1170d0c2c18d03e8b37951ca88ac37654d73bbdeef81d66ff208bd2a32e6ce1f",
-    "2494cb344df55037d8d7dfd88cd9cc5b214d135316302618b398fc40e53d2bac",
+    "1d9a2371275cde4e01f9218133305d4a6f568f119a430ebf243f40bb467304f5",
     "97108b6145205e8bc3af0b718558f8414db50e2d6e4d77d63133ab4aaa0b6bfe",
     "101893186b05cd8aec2c39af2ac24ed34c7299b9ad1a567cd6538bc3bc58cf42"
   ],
@@ -12,7 +12,7 @@
   "kind": "inspeximus.inclusion-proof/1",
   "leaf": "entries/99.leaf.json",
   "leaf_hash": "3ab19a3eed5a4af227dd6202bc9c663f602176732250be854141ca55e02e3730",
-  "root": "0ed1063a5570e0114025c3ee4ab383dc90367cd29d5f9302e44a28582f1b9cec",
+  "root": "3edbdac78648a60d66a3f1f56e40f5340c02d6390c2f0d3f0a80457cd364d08d",
   "scope": "Proves this entry is in the tree whose root is named here. It does not prove the entry is true, and it cannot see a history shown to somebody else: that is what the witness is for.",
-  "tree_size": 109
+  "tree_size": 110
 }
