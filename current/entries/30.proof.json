@@ -6,14 +6,14 @@
     "ea77b6d6176fbaeedde90d42974e5cf8940a143050623eda6f437a440521a51a",
     "2b1624abbeb2b459308de4fa328d4538a53ef45f0ad9803e63d323fba11c5210",
     "9d7574fc1f00414b06a88e9084a1270a90e186880ad21ab0c1c30d14b2db3b62",
-    "2c95c23d5c210be1d503b0cf37b4b4afa6783801dd9c844078dd876acd9efc64"
+    "d2847e528fe7b48e2127dbd0672f36ce66399a6897369e6c6df1c0251d873b38"
   ],
   "how": "Hash the leaf file with SHA-256(0x00 || bytes), then fold the audit path in order with SHA-256(0x01 || left || right), RFC 6962. The result must equal `root`, which is the value the signed checkpoint carries.",
   "index": 30,
   "kind": "inspeximus.inclusion-proof/1",
   "leaf": "entries/30.leaf.json",
   "leaf_hash": "b9a731925670f9cac38aa211507ee27a9cbd002dad745adaa175411a76a54cfa",
-  "root": "c22203379a27752a78ab76f28b9f9326aebfcf55149fe92c0475a4805d11fa08",
+  "root": "21876e5914f00e4dd2a55033311d9b723370c1091879dccc79161b02f08f8ed1",
   "scope": "Proves this entry is in the tree whose root is named here. It does not prove the entry is true, and it cannot see a history shown to somebody else: that is what the witness is for.",
-  "tree_size": 112
+  "tree_size": 113
 }
